@@ -12,12 +12,14 @@ using System.Text.Json;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+app.Urls.Add($"http://*:{port}");
+
 app.MapGet("/api/notificaciones", async () =>
 {
 using var httpClient = new HttpClient();
 
-    var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-    app.Urls.Add($"http://*:{port}");
+  
 
 
     httpClient.DefaultRequestHeaders.Authorization =
