@@ -12,11 +12,15 @@ using System.Text.Json;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapGet("/procesar-notificaciones", async () =>
+app.MapGet("/api/notificaciones", async () =>
 {
 using var httpClient = new HttpClient();
 
-httpClient.DefaultRequestHeaders.Authorization =
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+    app.Urls.Add($"http://*:{port}");
+
+
+    httpClient.DefaultRequestHeaders.Authorization =
     new AuthenticationHeaderValue("Bearer", "MiSuperTokenSecreto123");
 
 var response = await httpClient.GetAsync("https://gonpin.com/api/notificaciones");
