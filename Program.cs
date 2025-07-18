@@ -15,6 +15,8 @@ var app = builder.Build();
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 app.Urls.Add($"http://*:{port}");
 
+app.MapGet("/", () => "🚀 Web externa actualizada - 18/07/2025 21:00");
+
 app.MapGet("/api/notificaciones", async () =>
 {
 using var httpClient = new HttpClient();
