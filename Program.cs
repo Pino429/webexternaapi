@@ -90,7 +90,8 @@ return Results.Ok("No hay notificaciones para procesar.");
         }
     }
 
-return Results.Ok("Notificaciones procesadas correctamente.");
+    return Results.Ok(salida.ToString());
+    //return Results.Ok("Notificaciones procesadas correctamente.");
 });
 app.Run();
 
