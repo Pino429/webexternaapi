@@ -29,7 +29,8 @@ if (jsonCredential != null && FirebaseApp.DefaultInstance == null)
         Credential = GoogleCredential.FromStream(stream)
     });
 }
-app.MapGet("/", () => "🚀 Web externa actualizada perfectamente - 18/07/2025 21:00");
+//app.MapGet("/", () => "🚀 Web externa actualizada perfectamente - 18/07/2025 21:00");
+
 
 app.MapGet("/api/notificaciones", async () =>
 {
