@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 //using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using WebClienteCore;
 
 
 
@@ -62,13 +63,9 @@ return Results.Ok("No hay notificaciones para procesar.");
 
 return Results.Ok("Notificaciones procesadas correctamente.");
 });
+app.Run();
 
-public class Notificacion
-{
-    public string titulo { get; set; }
-    public string descripcion { get; set; }
-    public string token { get; set; }
-}
+
 
 
 
