@@ -1,3 +1,6 @@
+using FirebaseAdmin;
+using FirebaseAdmin.Messaging;
+using Google.Apis.Auth.OAuth2;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -16,15 +19,22 @@ var app = builder.Build();
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 app.Urls.Add($"http://*:{port}");
 
+// ✅ Inicializar Firebase desde variable de entorno
+var jsonCredential = Environment.GetEnvironmentVariable("GOOGLE_CREDENTIALS_B64");
+if (jsonCredential != null && FirebaseApp.DefaultInstance == null)
+{
+    var stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonCredential));
+    FirebaseApp.Create(new AppOptions()
+    {
+        Credential = GoogleCredential.FromStream(stream)
+    });
+}
 app.MapGet("/", () => "🚀 Web externa actualizada perfectamente - 18/07/2025 21:00");
 
 app.MapGet("/api/notificaciones", async () =>
 {
 using var httpClient = new HttpClient();
-
   
-
-
     httpClient.DefaultRequestHeaders.Authorization =
     new AuthenticationHeaderValue("Bearer", "MiSuperTokenSecreto123");
 
@@ -59,6 +69,25 @@ return Results.Ok("No hay notificaciones para procesar.");
         salida.AppendLine("------------------------------------------------");
 
         // 👉 Aquí podrías llamar a otro método que envíe la notificación FCM, por ejemplo
+        try
+        {
+            var message = new Message()
+            {
+                Token = v_token,
+                Notification = new Notification
+                {
+                    Title = v_titulo,
+                    Body = v_descripcion
+                }
+            };
+
+            string result = await FirebaseMessaging.DefaultInstance.SendAsync(message);
+            salida.AppendLine($"✅ Notificación enviada. ID: {result}");
+        }
+        catch (Exception ex)
+        {
+            salida.AppendLine($"❌ Error al enviar notificación: {ex.Message}");
+        }
     }
 
 return Results.Ok("Notificaciones procesadas correctamente.");
