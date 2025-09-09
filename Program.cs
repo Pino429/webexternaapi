@@ -13,6 +13,7 @@ using WebClienteCore;
 
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -31,18 +32,12 @@ if (b64 != null && FirebaseApp.DefaultInstance == null)
     });
 }
 
-// ✅ Inicializar Firebase desde variable de entorno
-/*var jsonCredential = Environment.GetEnvironmentVariable("GOOGLE_CREDENTIALS_B64");
-if (jsonCredential != null && FirebaseApp.DefaultInstance == null)
-{
-    var stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonCredential));
-    FirebaseApp.Create(new AppOptions()
-    {
-        Credential = GoogleCredential.FromStream(stream)
-    });
-}*/
+
 
 app.MapGet("/", () => "🚀 Web externa actualizada perfectamente - 18/07/2025 21:00");
+
+// ✅ Endpoint liviano para monitoreo
+app.MapGet("/ping", () => Results.Ok("✅ App activa"));
 
 
 app.MapGet("/api/notificaciones", async () =>
