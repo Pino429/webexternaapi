@@ -37,8 +37,8 @@ if (b64 != null && FirebaseApp.DefaultInstance == null)
 app.MapGet("/", () => "🚀 Web externa actualizada perfectamente - 18/07/2025 21:00");
 
 // ✅ Endpoint liviano para monitoreo
-app.MapGet("/ping", () => Results.Ok("✅ App activa"));
-
+//p.MapGet("/ping", () => Results.Ok("✅ App activa"));
+app.MapMethods("/ping", new[] { "GET", "HEAD" }, () => Results.Ok("✅ App activa"));
 
 app.MapGet("/api/notificaciones", async () =>
 {
