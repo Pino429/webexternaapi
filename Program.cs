@@ -45,10 +45,10 @@ app.MapGet("/api/notificaciones", async () =>
 {
 using var httpClient = new HttpClient();
 
-    //  httpClient.DefaultRequestHeaders.Authorization =
-    // new AuthenticationHeaderValue("Bearer", "MiSuperTokenSecreto123");
-    var response = await httpClient.GetAsync("https://gonpin.com/api/notificaciones/auto?key=ClaveUptime123");
-    //var response = await httpClient.GetAsync("https://gonpin.com/api/notificaciones");
+      httpClient.DefaultRequestHeaders.Authorization =
+     new AuthenticationHeaderValue("Bearer", "MiSuperTokenSecreto123");
+  //  var response = await httpClient.GetAsync("https://gonpin.com/api/notificaciones/auto?key=ClaveUptime123");
+    var response = await httpClient.GetAsync("https://gonpin.com/api/notificaciones");
     if (!response.IsSuccessStatusCode)
 {
 return Results.Problem("No se pudo obtener la información de la API externa.");
