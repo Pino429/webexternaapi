@@ -41,7 +41,8 @@ app.MapGet("/", () => "🚀 Web externa actualizada perfectamente - 18/07/2025 2
 //p.MapGet("/ping", () => Results.Ok("✅ App activa"));
 app.MapMethods("/ping", new[] { "GET", "HEAD" }, () => Results.Ok("✅ App activa"));
 
-app.MapGet("/api/notificaciones", async () =>
+app.MapMethods("/api/notificaciones", new[] { "GET", "HEAD" }, async () =>
+//app.MapGet("/api/notificaciones", async () =>
 {
 using var httpClient = new HttpClient();
 
